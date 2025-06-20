@@ -9,6 +9,43 @@
 </head>
 <body>
 
+<!--nav.navbar.navbar-expand-lg>.container>a.navbar-brand+button.navbar-toggler>span.navbar-toggler-icon-->
+<nav th:fragment="pageNavbar(current)"
+     class="navbar navbar-expand-lg mb-4 bg-body-tertiary">
+    <div class="container">
+        <a th:href="@{/board/list}" class="navbar-brand">PROJECT</a>
+        <button class="navbar-toggler"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--.collapse.navbar-collapse#navbarSupportedContent-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!--ul.navbar-nav.me-auto.mb-2.mb-lg-0-->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--li.nav-item*2>a.nav-link-->
+                <li class="nav-item">
+                    <a th:href="@{/board/list}"
+                       class="nav-link"
+                       th:classappend="${current == 'list' ? 'active' : ''}"
+                    >
+                        목록
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/board/write}"
+                       class="nav-link"
+                       th:classappend="${current == 'write' ? 'active' : ''}"
+                    >
+                        작성
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <th:block th:fragment="commonScript">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
