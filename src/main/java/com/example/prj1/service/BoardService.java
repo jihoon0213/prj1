@@ -1,9 +1,12 @@
 package com.example.prj1.service;
 
 import com.example.prj1.dto.BoardForm;
+import com.example.prj1.dto.BoardListInfo;
 import com.example.prj1.entity.Board;
 import com.example.prj1.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,14 +26,14 @@ public class BoardService {
         board.setWriter(formData.getWriter());
 
         boardRepository.save(board);
-
-
     }
 
-    public List<Board> list() {
-        List<Board> list = boardRepository.findAll();
+    public List<BoardListInfo> list(Integer page) {
+//        List<Board> list = boardRepository.findAll();
 
+        List<BoardListInfo> boardList = boardRepository
+                .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
 
-        return list;
+        return boardList;
     }
 }

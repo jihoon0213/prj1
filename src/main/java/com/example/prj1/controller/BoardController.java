@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("write")
-    public String write() {
+    public String writeForm() {
 
         return "board/write";
     }
@@ -29,14 +30,19 @@ public class BoardController {
 
         boardService.add(data);
 
-        return "board/write";
+        return "redirect:/board/list";
     }
 
     @GetMapping("list")
-    public String list(Model model) {
+    public String list(
+            @RequestParam(defaultValue = "1")
+            Integer page,
+            Model model) {
 
-        var result = boardService.list();
+        var result = boardService.list(page);
+
         model.addAttribute("boardList", result);
+
         return "board/list";
     }
 }
