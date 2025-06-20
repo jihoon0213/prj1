@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{layout/main::commonHead}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -15,7 +15,7 @@
 </div>
 <div>
     <label for="textareaContent">본문</label>
-    <textarea type="text" id="textareaContent" th:text="${board.title}" readonly></textarea>
+    <textarea type="text" id="textareaContent" th:text="${board.content}" readonly></textarea>
 </div>
 <div>
     <label for="inputWriter">작성자</label>
@@ -23,7 +23,10 @@
 </div>
 <div>
     <label for="inputCreated">작성일시</label>
-    <input type="text" id="inputCreated" th:value="${board.createdAt}" readonly>
+    <input type="datetime-local" id="inputCreated" th:value="${board.createdAt}" readonly>
 </div>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
+
 </body>
 </html>

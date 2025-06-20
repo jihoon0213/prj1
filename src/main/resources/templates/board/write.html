@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{layout/main::commonHead}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -24,6 +24,8 @@
         <button>저장</button>
     </div>
 </form>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
 
 </body>
 </html>
