@@ -1,6 +1,7 @@
 package com.example.prj1.controller;
 
 import com.example.prj1.dto.BoardForm;
+import com.example.prj1.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("board")
 public class BoardController {
 
+    private final BoardService boardService;
+
     @GetMapping("write")
     public String write() {
 
@@ -20,7 +23,8 @@ public class BoardController {
 
     @PostMapping("write")
     public String writePost(BoardForm data) {
-        System.out.println("data = " + data);
+
+        boardService.add(data);
 
         return "board/write";
     }
