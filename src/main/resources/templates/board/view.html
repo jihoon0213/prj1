@@ -45,7 +45,9 @@
                         data-bs-toggle="modal"
                         data-bs-target="#removeModal">삭제
                 </button>
-                <button class="btn btn-outline-secondary">수정</button>
+                <a th:href="@{/board/edit(id=${board.id})}"
+                   class="btn btn-outline-secondary">수정
+                </a>
             </div>
 
         </div>
