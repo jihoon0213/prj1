@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -61,8 +63,10 @@ public class BoardController {
     }
 
     @PostMapping("remove")
-    public String remove(Integer id) {
+    public String remove(Integer id, RedirectAttributes rttr) {
         boardService.remove(id);
+
+        rttr.addFlashAttribute("alert", Map.of("code", "danger", "massage", id + "번 게시물이 삭제 되었습니다."));
 
         return "redirect:/board/list";
     }
