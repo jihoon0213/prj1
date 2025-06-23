@@ -16,19 +16,25 @@
             <form th:action="@{/member/signup}" method="post" class="mb-3">
                 <div class="mb-3">
                     <label class="form-label" for="inputId">아이디</label>
-                    <input class="form-control" type="text" id="inputId" name="id">
+                    <input th:value="${member == null ? '' : member.id}" class="form-control" type="text" id="inputId"
+                           name="id">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="inputPassword">암호</label>
-                    <input class="form-control" type="password" id="inputPassword" name="password">
+                    <input th:value="${member == null ? '' : member.password}" class="form-control" type="password"
+                           id="inputPassword"
+                           name="password">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="inputNickName">별명</label>
-                    <input class="form-control" type="text" id="inputNickName" name="nickName">
+                    <input th:value="${member == null ? '' : member.nickName}" class="form-control" type="text"
+                           id="inputNickName"
+                           name="nickName">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="textareaInfo">자기소개</label>
-                    <textarea class="form-control" rows="10" name="info" id="textareaInfo"></textarea>
+                    <textarea th:text="${member == null ? '' : member.info}" class="form-control" rows="3" name="info"
+                              id="textareaInfo"></textarea>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary">가입</button>
