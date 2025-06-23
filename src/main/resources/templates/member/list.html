@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/main::commonHead('회원 목록')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--/* navbar */-->
+<nav th:replace="~{layout/main::pageNavbar('memberList')}"></nav>
+
+<!--.container>.row.justify-content-center>.col.col-lg-6>h2.mb-3{회원 목록}-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-lg-6">
+            <h2 class="mb-3">회원 목록</h2>
+            <!--            table>thead>tr>th*2^^tbody>tr>td*2-->
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NICK NAME</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member : ${memberList}">
+                    <td th:text="${member.id}"></td>
+                    <td th:text="${member.nickName}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="~{layout/main::commonScript}"/>
+</body>
+</html>
