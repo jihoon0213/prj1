@@ -1,5 +1,6 @@
 package com.example.prj1.member.service;
 
+import com.example.prj1.member.dto.MemberDto;
 import com.example.prj1.member.dto.MemberForm;
 import com.example.prj1.member.dto.MemberListInfo;
 import com.example.prj1.member.entity.Member;
@@ -46,5 +47,68 @@ public class MemberService {
 
     public List<MemberListInfo> list() {
         return memberRepository.findAllBy();
+    }
+
+    public MemberDto get(String id) {
+        Member member = memberRepository.findById(id).get();
+
+        MemberDto dto = new MemberDto();
+        dto.setId(member.getId());
+        dto.setNickName(member.getNickName());
+        dto.setInfo(member.getInfo());
+        dto.setCreatedAt(member.getCreatedAt());
+        return dto;
+
+    }
+
+    public boolean remove(MemberForm data) {
+        Member member = memberRepository.findById(data.getId()).get();
+
+        String dbPw = member.getPassword();
+        String formPw = data.getPassword();
+
+        if (dbPw.equals(formPw)) {
+            memberRepository.delete(member);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean update(MemberForm data) {
+        // 조회
+        Member member = memberRepository.findById(data.getId()).get();
+
+        String dbPw = member.getPassword();
+        String formPw = data.getPassword();
+
+        if (dbPw.equals(formPw)) {
+            // 변경
+            member.setNickName(data.getNickName());
+            member.setInfo(data.getInfo());
+            // 저장
+            memberRepository.save(member);
+
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean updatePassword(String id, String oldPassword, String newPassword) {
+        Member db = memberRepository.findById(id).get();
+
+        String dbPw = db.getPassword();
+
+        if (dbPw.equals(oldPassword)) {
+            db.setPassword(newPassword);
+            memberRepository.save(db);
+
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

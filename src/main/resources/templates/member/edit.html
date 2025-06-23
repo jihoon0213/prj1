@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/main::commonHead('회원 정보 수정')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="~{layout/main::pageNavbar(_)}"></nav>
+<!--.container>.row.justify-content-center>.col.col-lg-6>h2.mb-3+form.mb-3-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-lg-6">
+            <h2 class="mb-3">회원 정보 수정</h2>
+            <form id="editForm" th:action="@{/member/edit}" class="mb-3" method="post">
+                <!--                div.mb-3*4>label.form-label+input.form-control-->
+                <div class="mb-3">
+                    <label for="inputId" class="form-label">아이디</label>
+                    <input th:value="${member.id}" readonly
+                           name="id" id="inputId" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="inputNickName" class="form-label">별명</label>
+                    <input th:value="${member.nickName}"
+                           name="nickName" id="inputNickName" type="text"
+                           class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="textareaInfo" class="form-label">자기 소개</label>
+                    <textarea th:text="${member.info}"
+                              class="form-control"
+                              name="info" id="textareaInfo" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editModal"
+                            class="btn btn-primary"
+                    >저장
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-outline-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editPasswordModal"
+                    >
+                        암호 변경
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 암호 변경 Modal -->
+<div class="modal fade" id="editPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">
+                    암호 변경
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm" th:action="@{/member/changePw}" method="post">
+                    <input type="hidden" name="id" th:value="${member.id}">
+                    <div class="mb-3">
+                        <label for="inputPassword1" class="form-label">기존 암호</label>
+                        <input placeholder="기존 암호를 입력하세요."
+                               id="inputPassword1"
+                               name="oldPassword"
+                               type="password" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword2" class="form-label">새 암호</label>
+                        <input placeholder="변경할 암호를 입력하세요."
+                               id="inputPassword2"
+                               name="newPassword"
+                               type="password" class="form-control">
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    취소
+                </button>
+                <button type="submit" form="changePasswordForm" class="btn btn-primary">
+                    암호 변경
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 닉넴, 자기소개 변경 Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">
+                    회원 정보 변경 확인
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <!--                        label.form-label+input.form-control-->
+                    <label for="inputPassword" class="form-label">암호</label>
+                    <input placeholder="기존 암호를 입력하세요."
+                           id="inputPassword"
+                           form="editForm"
+                           name="password"
+                           type="password" class="form-control">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    취소
+                </button>
+                <button type="submit" form="editForm" class="btn btn-primary">
+                    저장
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
+
+</body>
+</html>

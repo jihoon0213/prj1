@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/main::commonHead(${member.id})}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="~{layout/main::pageNavbar(_)}"></nav>
+
+<!--.container>.row.justify-content-center>.col.col-lg-6>h2.mb-3{회원 정보}-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-lg-6">
+            <h2 class="mb-3">회원 정보</h2>
+            <!--            div.mb-3*4>label.form-label+input.form-control[readonly]-->
+            <div class="mb-3">
+                <label for="inputId" class="form-label">아이디</label>
+                <input th:value="${member.id}" id="inputId" type="text" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="inputNickName" class="form-label">별명</label>
+                <input th:value="${member.nickName}" id="inputNickName" type="text" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="textareaInfo" class="form-label">자기소개</label>
+                <textarea th:text="${member.info}"
+                          rows="3"
+                          id="textareaInfo" class="form-control" readonly></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="inputCreated" class="form-label">가입일시</label>
+                <input th:value="${member.createdAt}" id="inputCreated" type="datetime-local" class="form-control"
+                       readonly>
+            </div>
+
+            <div>
+                <button class="btn btn-outline-danger btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#removeModal">회원 탈퇴
+                </button>
+                <a th:href="@{/member/edit(id=${member.id})}"
+                   class="btn btn-outline-secondary">수정
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">
+                    탈퇴 확인
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="removeForm" th:action="@{/member/remove}" method="post">
+                    <input type="hidden" name="id" th:value="${member.id}">
+                    <div>
+                        <!--                        label.form-label+input.form-control-->
+                        <label for="inputPassword" class="form-label">암호</label>
+                        <input placeholder="기존 암호를 입력하세요."
+                               id="inputPassword"
+                               name="password"
+                               type="password" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    취소
+                </button>
+                <button type="submit" form="removeForm" class="btn btn-danger">
+                    탈퇴
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
+</body>
+</html>

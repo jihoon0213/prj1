@@ -1,5 +1,6 @@
 package com.example.prj1.member.controller;
 
+import com.example.prj1.member.dto.MemberDto;
 import com.example.prj1.member.dto.MemberForm;
 import com.example.prj1.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -53,4 +54,81 @@ public class MemberController {
 
         return "member/list";
     }
+
+    @GetMapping("view")
+    public String view(String id, Model model) {
+        model.addAttribute("member", memberService.get(id));
+
+        return "member/view";
+    }
+
+    @PostMapping("remove")
+    public String remove(MemberForm data, RedirectAttributes rttr) {
+        boolean result = memberService.remove(data);
+
+        if (result) {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "danger", "message", data.getId() + "님 탈퇴 되었습니다."));
+
+            return "redirect:/board/list";
+        } else {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "danger", "message", "암호가 일치하지 않습니다."));
+
+            rttr.addAttribute("id", data.getId());
+
+            return "redirect:/member/view";
+        }
+    }
+
+    @GetMapping("edit")
+    public String edit(String id, Model model) {
+        model.addAttribute("member", memberService.get(id));
+        return "member/edit";
+    }
+
+    @PostMapping("edit")
+    public String edit(MemberForm data, RedirectAttributes rttr) {
+
+        boolean result = memberService.update(data);
+
+        if (result) {
+
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "success", "message", "회원 정보가 변경되었습니다."));
+
+            rttr.addAttribute("id", data.getId());
+            return "redirect:/member/view";
+        } else {
+            rttr.addAttribute("id", data.getId());
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "warning", "message", "암호가 일치하지 않습니다."));
+
+            return "redirect:/member/edit";
+        }
+
+    }
+
+    @PostMapping("changePw")
+    public String changePassword(String id,
+                                 String oldPassword,
+                                 String newPassword,
+                                 RedirectAttributes rttr) {
+
+        boolean result = memberService.updatePassword(id, oldPassword, newPassword);
+
+        if (result) {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "success", "message", "암호가 변경되었습니다."));
+        } else {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "warning", "message", "암호가 일치하지 않습니다.."));
+        }
+
+        rttr.addAttribute("id", id);
+        return "redirect:/member/edit";
+
+    }
+
+
 }
