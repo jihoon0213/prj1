@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/main::commonHead('회원가입')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="~{layout/main::pageNavbar('signup')}"></nav>
+
+<!--.container>.row.justify-content-center>.col.col-lg-6>h2.mb-3{회원 가입}-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-lg-6">
+            <h2 class="mb-3">회원 가입</h2>
+            <!--            form.mb-3>div.mb-3*5>label+input-->
+            <form th:action="@{/member/signup}" method="post" class="mb-3">
+                <div class="mb-3">
+                    <label class="form-label" for="inputId">아이디</label>
+                    <input class="form-control" type="text" id="inputId" name="id">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="inputPassword">암호</label>
+                    <input class="form-control" type="password" id="inputPassword" name="password">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="inputNickName">별명</label>
+                    <input class="form-control" type="text" id="inputNickName" name="nickName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="textareaInfo">자기소개</label>
+                    <textarea class="form-control" rows="10" name="info" id="textareaInfo"></textarea>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary">가입</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
+</body>
+</html>

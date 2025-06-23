@@ -1,7 +1,7 @@
-package com.example.prj1.controller;
+package com.example.prj1.board.controller;
 
-import com.example.prj1.dto.BoardForm;
-import com.example.prj1.service.BoardService;
+import com.example.prj1.board.dto.BoardForm;
+import com.example.prj1.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
