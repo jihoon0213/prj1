@@ -58,7 +58,26 @@
                             회원목록
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a th:href="@{/member/login}"
+                           class="nav-link"
+                           th:classappend="${current == 'login' ? 'active' : ''}"
+                        >
+                            로그인
+                        </a>
+                    </li>
+
+                    <li class="nav-item" th:if="${session.loggedInUser != null}">
+                        <a th:href="@{/member/view(id=${session.loggedInUser.id})}"
+                           class="nav-link"
+                           th:classappend="${current == 'memberView' ? 'active' : ''}"
+                        >
+                            <span th:text="${session.loggedInUser.nickName}">별명</span>
+                        </a>
+                    </li>
                 </ul>
+
+
             </div>
         </div>
     </nav>

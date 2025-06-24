@@ -3,6 +3,7 @@ package com.example.prj1.member.controller;
 import com.example.prj1.member.dto.MemberDto;
 import com.example.prj1.member.dto.MemberForm;
 import com.example.prj1.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -131,4 +132,24 @@ public class MemberController {
     }
 
 
+    @GetMapping("login")
+    public String loginForm() {
+
+        return "member/login";
+    }
+
+    @PostMapping("login")
+    public String loginProcess(String id, String password, HttpSession session) {
+
+        boolean result = memberService.login(id, password, session);
+
+        if (result) {
+            // 로그인 성공
+            return "redirect:/board/list";
+        } else {
+            // 로그인 실패
+            return "redirect:/member/login";
+        }
+
+    }
 }
