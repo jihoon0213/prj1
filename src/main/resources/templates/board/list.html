@@ -45,7 +45,7 @@
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:if="${leftPageNumber > 10}">
                         <a class="page-link"
-                           th:href="@{/board/list(page=${leftPageNumber - 10}, keyword=${param.keyword})}">
+                           th:href="@{/board/list(page=${leftPageNumber - 10},keyword=${param.keyword})}">
                             <span>&laquo;</span>
                         </a>
                     </li>
@@ -53,13 +53,13 @@
                         th:each="pageNumber : ${#numbers.sequence(leftPageNumber, rightPageNumber)}"
                         th:classappend="${(currentPage == pageNumber) ? 'active' : ''}">
                         <a class="page-link"
-                           th:href="@{/board/list(page=${pageNumber}, keyword=${param.keyword})}"
+                           th:href="@{/board/list(page=${pageNumber},keyword=${param.keyword})}"
                            th:text="${pageNumber}"></a>
                     </li>
                     <li class="page-item"
                         th:if="${(rightPageNumber + 1) <= totalPages}">
                         <a class="page-link"
-                           th:href="@{/board/list(page=${rightPageNumber + 1}, keyword=${param.keyword})}">
+                           th:href="@{/board/list(page=${rightPageNumber + 1},keyword=${param.keyword})}">
                             <span>&raquo;</span>
                         </a>
                     </li>

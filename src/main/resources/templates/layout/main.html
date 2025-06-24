@@ -86,8 +86,11 @@
 
                 <form th:action="@{/board/list}" class="d-flex">
                     <!--                    input.form-control.me-2+button.btn.btn-outline-success{검색}-->
-                    <input type="text" class="form-control me-2" name="keyword"
-                           th:value="${(param.keyword == null || param.keyword[0].isBlank()) ? '' : param.keyword[0]}">
+                    <input type="text"
+                           class="form-control me-2"
+                           name="keyword"
+                           th:value="${(param.keyword == null || param.keyword[0].isBlank()) ? '' : param.keyword[0]}"
+                    >
                     <button class="btn btn-outline-success">검색</button>
                 </form>
 
