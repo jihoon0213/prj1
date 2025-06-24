@@ -39,11 +39,18 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public Map<String, Object> list(Integer page) {
+    public Map<String, Object> list(Integer page, String keyword) {
 //        List<Board> list = boardRepository.findAll();
 
-        Page<BoardListInfo> boardPage = boardRepository
-                .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+        Page<BoardListInfo> boardPage = null;
+
+        if (keyword == null || keyword.isBlank()) {
+            boardPage = boardRepository
+                    .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+        } else {
+            boardPage = boardRepository.searchByKeyword("%" + keyword + "%",
+                    PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+        }
 
         List<BoardListInfo> boardList = boardPage.getContent();
 
