@@ -68,25 +68,45 @@ public class BoardService {
         dto.setTitle(board.getTitle());
         dto.setContent(board.getContent());
 
-        // TODO : 나중에 변경
-//        dto.setWriter(board.getWriter());
+        MemberDto memberDto = new MemberDto();
+        memberDto.setId(board.getWriter().getId());
+        memberDto.setNickName(board.getWriter().getNickName());
+
+        dto.setWriter(memberDto);
         dto.setCreatedAt(board.getCreatedAt());
 
         return dto;
     }
 
-    public void remove(Integer id) {
-        boardRepository.deleteById(id);
+    public boolean remove(Integer id, MemberDto user) {
+        if (user != null) {
+            Member db = boardRepository.findById(id)
+                    .get()
+                    .getWriter();
+
+            if (db.getId().equals(user.getId())) {
+                boardRepository.deleteById(id);
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void update(BoardForm data) {
-        // 조회
-        Board board = boardRepository.findById(data.getId()).get();
-        // 수정
-        board.setTitle(data.getTitle());
-        board.setContent(data.getContent());
+    public boolean update(BoardForm data, MemberDto user) {
+        if (user != null) {
+            // 조회
+            Board board = boardRepository.findById(data.getId()).get();
 
-        // 저장
-        boardRepository.save(board);
+            if (board.getWriter().getId().equals(user.getId())) {
+                // 수정
+                board.setTitle(data.getTitle());
+                board.setContent(data.getContent());
+
+                // 저장
+                boardRepository.save(board);
+                return true;
+            }
+        }
+        return false;
     }
 }

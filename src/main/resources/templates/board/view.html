@@ -32,7 +32,10 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="inputWriter">작성자</label>
-                <input class="form-control" type="text" id="inputWriter" th:value="${board.writer}" readonly>
+                <input class="form-control"
+                       type="text"
+                       id="inputWriter"
+                       th:value="${board.writer.nickName}" readonly>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="inputCreated">작성일시</label>
@@ -40,7 +43,7 @@
                        readonly>
             </div>
 
-            <div>
+            <div th:if="${(session.loggedInUser != null) && (session.loggedInUser.id == board.writer.id)}">
                 <button class="btn btn-outline-danger"
                         data-bs-toggle="modal"
                         data-bs-target="#removeModal">삭제

@@ -32,7 +32,7 @@
                         <td>
                             <a th:href="@{/board/view(id=${board.id})}" th:text="${board.title}"></a>
                         </td>
-                        <td th:text="${board.writer}"></td>
+                        <td th:text="${board.writer.nickName}"></td>
                         <td th:text="${board.createdAt}"></td>
                     </tr>
                     </tbody>
