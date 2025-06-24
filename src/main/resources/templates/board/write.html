@@ -26,7 +26,9 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="writerInput">작성자</label>
-                    <input class="form-control" type="text" id="writerInput" name="writer">
+                    <input class="form-control"
+                           type="text" id="writerInput" readonly
+                           th:value="${session.loggedInUser.nickName}">
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary">저장</button>
