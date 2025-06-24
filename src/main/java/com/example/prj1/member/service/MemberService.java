@@ -1,5 +1,6 @@
 package com.example.prj1.member.service;
 
+import com.example.prj1.board.repository.BoardRepository;
 import com.example.prj1.member.dto.MemberDto;
 import com.example.prj1.member.dto.MemberForm;
 import com.example.prj1.member.dto.MemberListInfo;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
 
     public void add(MemberForm data) {
 
@@ -70,6 +72,9 @@ public class MemberService {
                 String formPw = data.getPassword();
 
                 if (dbPw.equals(formPw)) {
+                    // 작성한 글 삭제
+                    boardRepository.deleteByWriter(member);
+                    // 회원 정보 삭제
                     memberRepository.delete(member);
                     return true;
                 }
