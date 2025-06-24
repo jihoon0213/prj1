@@ -93,7 +93,7 @@ public class MemberService {
                     // 저장
                     memberRepository.save(member);
 
-                    // dto 만들어서 session저장
+                    // dto 만들어서 session에 저장
                     addUserToSession(session, member);
                     return true;
                 }

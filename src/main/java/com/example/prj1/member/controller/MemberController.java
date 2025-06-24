@@ -124,7 +124,6 @@ public class MemberController {
                        HttpSession session,
                        RedirectAttributes rttr) {
 
-
         boolean result = memberService.update(data, user, session);
 
         if (result) {

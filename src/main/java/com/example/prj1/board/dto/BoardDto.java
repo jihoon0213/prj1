@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 /**
  * DTO for {@link Board}
  */
+//@Value
 @Data
 public class BoardDto implements Serializable {
     Integer id;
