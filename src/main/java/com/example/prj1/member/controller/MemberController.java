@@ -139,17 +139,37 @@ public class MemberController {
     }
 
     @PostMapping("login")
-    public String loginProcess(String id, String password, HttpSession session) {
+    public String loginProcess(String id, String password,
+                               HttpSession session,
+                               RedirectAttributes rttr) {
 
         boolean result = memberService.login(id, password, session);
 
         if (result) {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "success",
+                            "message", "로그인 되었습니다."));
             // 로그인 성공
             return "redirect:/board/list";
         } else {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "warning",
+                            "message", "아이디/패스워드가 일치하지 않습니다."));
+
             // 로그인 실패
             return "redirect:/member/login";
         }
 
+    }
+
+    @RequestMapping("logout")
+    public String logout(HttpSession session, RedirectAttributes rttr) {
+        session.invalidate();
+
+        rttr.addFlashAttribute("alert",
+                Map.of("code", "success",
+                        "message", "로그아웃 되었습니다."));
+
+        return "redirect:/board/list";
     }
 }
