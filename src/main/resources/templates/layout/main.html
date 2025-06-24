@@ -24,7 +24,7 @@
             <!--.collapse.navbar-collapse#navbarSupportedContent-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!--ul.navbar-nav.me-auto.mb-2.mb-lg-0-->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 order-lg-1">
                     <!--li.nav-item*2>a.nav-link-->
                     <li class="nav-item">
                         <a th:href="@{/board/list}"
@@ -42,6 +42,8 @@
                             작성
                         </a>
                     </li>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0 order-lg-3 ms-auto">
                     <li class="nav-item" th:if="${session.loggedInUser == null}">
                         <a th:href="@{/member/signup}"
                            class="nav-link"
@@ -84,14 +86,18 @@
                     </li>
                 </ul>
 
-                <form th:action="@{/board/list}" class="d-flex">
+                <form th:action="@{/board/list}" class="d-flex order-lg-2">
                     <!--                    input.form-control.me-2+button.btn.btn-outline-success{검색}-->
                     <input type="text"
                            class="form-control me-2"
                            name="keyword"
                            th:value="${(param.keyword == null || param.keyword[0].isBlank()) ? '' : param.keyword[0]}"
                     >
-                    <button class="btn btn-outline-success">검색</button>
+                    <button class="btn btn-outline-success">
+                        <span style="word-break: keep-all">
+                            검색
+                        </span>
+                    </button>
                 </form>
 
             </div>
