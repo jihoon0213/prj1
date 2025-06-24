@@ -121,10 +121,11 @@ public class MemberController {
     public String edit(MemberForm data,
                        @SessionAttribute(value = "loggedInUser", required = false)
                        MemberDto user,
+                       HttpSession session,
                        RedirectAttributes rttr) {
 
-        // TODO: 닉네임 변경 후 네브바 반영 하기
-        boolean result = memberService.update(data, user);
+
+        boolean result = memberService.update(data, user, session);
 
         if (result) {
 
